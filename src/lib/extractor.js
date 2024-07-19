@@ -1,11 +1,8 @@
+import { extract } from "@extractus/article-extractor";
 import axios from "axios";
 import cheerio from "cheerio";
-import { extract } from "@extractus/article-extractor";
 import TurndownService from "turndown";
-import dotenv from "dotenv";
-import { summarize } from "@lib/summarizer.js";
 
-dotenv.config();
 
 // TODO: Server-Side cache by lang and title
 
@@ -37,16 +34,14 @@ const prefferedCategories = [
 
 const maxArticlesPerCategory = 3;
 
-const articles = {};
-
 async function extractCNN() {
   const response = await axios.get("https://edition.cnn.com/");
   const $ = cheerio.load(response.data);
-
+  const articles = {};
   const elements = $("[data-section]").toArray();
 
   for (const elem of elements) {
-    let link = `https://edition.cnn.com${$(elem).find("a").attr("href")}`;
+    let url = `https://edition.cnn.com${$(elem).find("a").attr("href")}`;
     let section = $(elem).attr("data-section");
     let title = $(elem).find(".container__headline-text").text();
 
@@ -56,32 +51,29 @@ async function extractCNN() {
       }
 
       if (articles[section].length < maxArticlesPerCategory) {
-        let article = { title, link, section };
+        let article = { title, url, section };
         try {
-          const extractedArticle = await extract(link);
+          const extractedArticle = await extract(url);
           const turndownService = new TurndownService();
-          const content = turndownService.turndown(extractedArticle.content);
-          article["content"] = await summarize(article);
-          article["image"] = extractedArticle.image;
-          article["favicon"] = extractedArticle.author;
+          article.content = turndownService.turndown(extractedArticle.content);
+          article.title = title;
+          article.url = url;
+          article.image = extractedArticle.image;
+          article.language = "Spanish";
+          article.source = "CNN";
+          article.publishedAt = new Date(extractedArticle.published);
+          article.extractedAt = new Date();
+          article.section = section;
+          article.favicon =
+            "https://cnnespanol.cnn.com/wp-content/themes/cnnespanol/static/images/favicon/favicon-32x32.png";
           articles[section].push(article);
         } catch (error) {
-          console.error(`Error extracting article from ${link}`, error);
+          console.error(`Error extracting article from ${url}`, error);
         }
       }
     }
   }
+  return articles;
 }
-
-extractCNN().then(() => {
-  Object.keys(articles).forEach((section) => {
-    articles[section].forEach((article, i) => {
-      console.log(
-        `${i + 1}. ${article.title} - ${article.section} - ${article.link}\n${article.image}\n${article.favicon}\n${article.content}\n\n`,
-      );
-    });
-  });
-});
-
 
 export { extractCNN };
