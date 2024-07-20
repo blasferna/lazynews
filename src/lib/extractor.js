@@ -3,7 +3,6 @@ import axios from "axios";
 import cheerio from "cheerio";
 import TurndownService from "turndown";
 
-
 // TODO: Server-Side cache by lang and title
 
 const allCategories = [
@@ -23,16 +22,17 @@ const allCategories = [
 ];
 
 const prefferedCategories = [
-  // "world",
+  "world",
   // "us",
-  //"business",
-  //"politics",
+  "business",
+  "politics",
   //"health",
+  "entertainment",
   "science",
   "climate",
 ];
 
-const maxArticlesPerCategory = 3;
+const maxArticlesPerCategory = 4;
 
 async function extractCNN() {
   const response = await axios.get("https://edition.cnn.com/");
@@ -65,7 +65,7 @@ async function extractCNN() {
           article.extractedAt = new Date();
           article.section = section;
           article.favicon =
-            "https://cnnespanol.cnn.com/wp-content/themes/cnnespanol/static/images/favicon/favicon-32x32.png";
+            "https://edition.cnn.com/media/sites/cnn/favicon.ico";
           articles[section].push(article);
         } catch (error) {
           console.error(`Error extracting article from ${url}`, error);

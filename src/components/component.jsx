@@ -1,22 +1,60 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
-export function Component({ children }) {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+export function Component({ elements }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [articleData, setArticleData] = useState({});
+
+  const openModal = (data) => {
+    setArticleData(data);
+    setIsModalOpen(true);
+  };
+
+  const articleClick = (e) => {
+    const article = e.target.closest(".article");
+    if (article) {
+      const articleData = {}
+      articleData.title = article.querySelector(".article-title").textContent;
+      articleData.content = article.querySelector(".article-content").textContent;
+      articleData.image = article.querySelector(".article-image").src;
+      articleData.source = article.querySelector(".article-source").textContent;
+      articleData.favicon = article.querySelector(".article-favicon").src;
+      articleData.timeAgo = article.querySelector(".article-time-ago").textContent;
+      openModal(articleData);
+    }
+  };
+
+  useEffect(() => {
+    const articleElements = document.querySelectorAll(".article");
+
+    articleElements.forEach((article) => {
+      article.addEventListener("click", articleClick);
+    });
+
+    return () => {
+      articleElements.forEach((article) => {
+        article.removeEventListener("click", articleClick);
+      });
+    };
+  }, []);
+
   return (
-    (<div
+    <div
       className={`flex flex-col min-h-screen ${
         isDarkMode ? "dark:bg-[#1a1b1e] dark:text-white" : "bg-white text-black"
-      }`}>
+      }`}
+    >
       <header
         className={`bg-primary text-primary-foreground py-4 px-6 shadow ${
           isDarkMode ? "dark:bg-[#2a2b2e] dark:text-white" : ""
-        }`}>
+        }`}
+      >
         <div className="container mx-auto flex items-center justify-between">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <NewspaperIcon className="w-6 h-6" />
@@ -82,7 +120,11 @@ export function Component({ children }) {
                 <UserIcon className="w-5 h-5" />
                 <span className="sr-only">Profile</span>
               </Button>
-              <Button variant="ghost" size="icon" onClick={() => setIsDarkMode(!isDarkMode)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsDarkMode(!isDarkMode)}
+              >
                 <SunMoonIcon className="w-5 h-5" />
                 <span className="sr-only">Toggle Dark Mode</span>
               </Button>
@@ -91,87 +133,28 @@ export function Component({ children }) {
         </div>
       </header>
       <main
-        className={`flex-1 ${isDarkMode ? "dark:bg-[#1a1b1e] dark:text-white" : "bg-background text-foreground"}`}>
-        <div
-          className="container mx-auto py-8 grid grid-cols-1 md:grid-cols-[1fr_300px] gap-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2  gap-6">
-            {children}
-          </div>
-          <div className="hidden md:block">
-            <Card className={`${isDarkMode ? "dark:bg-[#2a2b2e] dark:text-white" : ""}`}>
-              <CardHeader>
-                <CardTitle>Categories</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <nav className="grid gap-2">
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Technology
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Business
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Science
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Sports
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Entertainment
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Politics
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Health
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Environment
-                  </Link>
-                </nav>
-              </CardContent>
-            </Card>
-            <Card
-              className={`mt-6 ${isDarkMode ? "dark:bg-[#2a2b2e] dark:text-white" : ""}`}>
-              <CardHeader>
-                <CardTitle>Trending Topics</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <nav className="grid gap-2">
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Artificial Intelligence
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Climate Change
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Cryptocurrency
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Remote Work
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Renewable Energy
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Autonomous Vehicles
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Healthcare Innovation
-                  </Link>
-                  <Link href="#" className="hover:underline" prefetch={false}>
-                    Social Media Trends
-                  </Link>
-                </nav>
-              </CardContent>
-            </Card>
-          </div>
+        className={`flex-1 ${
+          isDarkMode
+            ? "dark:bg-[#1a1b1e] dark:text-white"
+            : "bg-background text-foreground"
+        }`}
+      >
+        <div className="container px-4 sm:px-0 mx-auto py-8">
+          {elements.map((element, index) => (
+            <div key={index} className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">{element.title}</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {element.component}
+              </div>
+            </div>
+          ))}
         </div>
       </main>
       <footer
         className={`bg-primary text-primary-foreground py-4 px-6 shadow ${
           isDarkMode ? "dark:bg-[#2a2b2e] dark:text-white" : ""
-        }`}>
+        }`}
+      >
         <div className="container mx-auto flex items-center justify-between">
           <p className="text-sm">© 2023 AI News. All rights reserved.</p>
           <nav className="flex items-center gap-4">
@@ -187,13 +170,50 @@ export function Component({ children }) {
           </nav>
         </div>
       </footer>
-    </div>)
+      {isModalOpen && (
+        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+          <DialogContent className="sm:max-w-[800px]">
+          <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">{articleData.title}</DialogTitle>
+          </DialogHeader>
+            <div className="grid gap-6">
+              <div>
+                <img
+                  src={articleData.image}
+                  alt="Article Thumbnail"
+                  width={800}
+                  height={450}
+                  className="rounded-md object-cover aspect-video"
+                />
+              </div>
+              <div className="flex items-center mt-3 gap-1 article-source">
+                <img
+                  src={articleData.favicon}
+                  alt="Favicon"
+                  className="rounded-full w-4 h-4 overflow-hidden article-favicon"
+                />
+                <span className="text-xs ml-1 article-source">{articleData.source}</span>
+                <span className="text-xs text-muted-foreground">
+                  <span className="mr-1">•</span>
+                  <span>{articleData.timeAgo}</span>
+                </span>
+              </div>
+              <div className="grid gap-4">
+                <p className="text-article-foreground">
+                  {articleData.content}
+                </p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </div>
   );
 }
 
 function MenuIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -203,18 +223,18 @@ function MenuIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <line x1="4" x2="20" y1="12" y2="12" />
       <line x1="4" x2="20" y1="6" y2="6" />
       <line x1="4" x2="20" y1="18" y2="18" />
-    </svg>)
+    </svg>
   );
 }
-
 
 function MoonIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -224,16 +244,16 @@ function MoonIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-    </svg>)
+    </svg>
   );
 }
-
 
 function NewspaperIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -243,20 +263,19 @@ function NewspaperIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
-      <path
-        d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
+      strokeLinejoin="round"
+    >
+      <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
       <path d="M18 14h-8" />
       <path d="M15 18h-5" />
       <path d="M10 6h8v4h-8V6Z" />
-    </svg>)
+    </svg>
   );
 }
-
 
 function SearchIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -266,17 +285,17 @@ function SearchIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.3-4.3" />
-    </svg>)
+    </svg>
   );
 }
 
-
 function SunMoonIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -286,7 +305,8 @@ function SunMoonIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <path d="M12 8a2.83 2.83 0 0 0 4 4 4 4 0 1 1-4-4" />
       <path d="M12 2v2" />
       <path d="M12 20v2" />
@@ -296,14 +316,13 @@ function SunMoonIcon(props) {
       <path d="M20 12h2" />
       <path d="m6.3 17.7-1.4 1.4" />
       <path d="m19.1 4.9-1.4 1.4" />
-    </svg>)
+    </svg>
   );
 }
-
 
 function UserIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -313,17 +332,17 @@ function UserIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
-    </svg>)
+    </svg>
   );
 }
 
-
 function XIcon(props) {
   return (
-    (<svg
+    <svg
       {...props}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
@@ -333,9 +352,10 @@ function XIcon(props) {
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round">
+      strokeLinejoin="round"
+    >
       <path d="M18 6 6 18" />
       <path d="m6 6 12 12" />
-    </svg>)
+    </svg>
   );
 }

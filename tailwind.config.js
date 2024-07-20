@@ -12,6 +12,9 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+      },
     },
       colors: {
             "border": "hsl(var(--border))",
@@ -35,6 +38,10 @@ module.exports = {
               "DEFAULT": "hsl(var(--muted))",
               "foreground": "hsl(var(--muted-foreground))"
             },
+            "article": {
+              "DEFAULT": "hsl(var(--article))",
+              "foreground": "hsl(var(--article-foreground))"
+            },
             "accent": {
               "DEFAULT": "hsl(var(--accent))",
               "foreground": "hsl(var(--accent-foreground))"
@@ -47,11 +54,6 @@ module.exports = {
               "DEFAULT": "hsl(var(--card))",
               "foreground": "hsl(var(--card-foreground))"
             }
-          },
-      borderRadius: {
-            "lg": "var(--radius)",
-            "md": "calc(var(--radius) - 2px)",
-            "sm": "calc(var(--radius) - 4px)"
           },
       keyframes: {
             "accordion-down": {

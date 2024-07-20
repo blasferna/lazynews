@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle/db";
 import { ArticleTable } from "@/db/drizzle/schema";
-import "@/lib/envConfig.js";
+import "@/lib/env-config.js";
 import { extractCNN } from "@/lib/extractor";
 import { summarize } from "@/lib/summarizer";
 import { eq, and } from "drizzle-orm";
