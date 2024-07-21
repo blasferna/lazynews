@@ -30,6 +30,18 @@ export default async function Home() {
         <FilteredArticles section="business" limit={4}></FilteredArticles>
       ),
     },
+    {
+      title: t("sportNews"),
+      component: (
+        <FilteredArticles section="sport" limit={4}></FilteredArticles>
+      ),
+    },
+    {
+      title: t("entertainmentNews"),
+      component: (
+        <FilteredArticles section="entertainment" limit={4}></FilteredArticles>
+      ),
+    },
   ];
 
   return <Component elements={elements}></Component>;
