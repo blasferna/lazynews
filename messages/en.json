@@ -1,3 +1,6 @@
 {
-  "world": "World"
+  "LocaleSwitcher": {
+    "english": "English",
+    "spanish": "Español"
+  }
 }

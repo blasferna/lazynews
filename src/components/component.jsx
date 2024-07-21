@@ -1,8 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,7 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { truncateTitle } from "@/lib/utils";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import LocaleSwitcher from "./locale-switcher";
+
 
 export function Component({ elements }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -24,8 +26,11 @@ export function Component({ elements }) {
 
   const getTruncatedTitle = () => {
     const isMobile = window.innerWidth <= 600;
-    return truncateTitle(articleData.title, isMobile ? 95 : articleData.title.length);
-  };  
+    return truncateTitle(
+      articleData.title,
+      isMobile ? 95 : articleData.title.length
+    );
+  };
 
   const articleClick = (e) => {
     const article = e.target.closest(".article");
@@ -77,6 +82,27 @@ export function Component({ elements }) {
             <span className="text-xl font-bold">AI News</span>
           </Link>
           <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-6 mr-4">
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Home
+              </Link>
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Technology
+              </Link>
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Business
+              </Link>
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Science
+              </Link>
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Sports
+              </Link>
+              <Link href="#" className="hover:underline" prefetch={false}>
+                Entertainment
+              </Link>
+            </nav>
+            <LocaleSwitcher />
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
@@ -107,44 +133,6 @@ export function Component({ elements }) {
                 </nav>
               </SheetContent>
             </Sheet>
-            <nav className="hidden md:flex items-center gap-6">
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Home
-              </Link>
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Technology
-              </Link>
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Business
-              </Link>
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Science
-              </Link>
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Sports
-              </Link>
-              <Link href="#" className="hover:underline" prefetch={false}>
-                Entertainment
-              </Link>
-            </nav>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon">
-                <SearchIcon className="w-5 h-5" />
-                <span className="sr-only">Search</span>
-              </Button>
-              <Button variant="ghost" size="icon">
-                <UserIcon className="w-5 h-5" />
-                <span className="sr-only">Profile</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsDarkMode(!isDarkMode)}
-              >
-                <SunMoonIcon className="w-5 h-5" />
-                <span className="sr-only">Toggle Dark Mode</span>
-              </Button>
-            </div>
           </div>
         </div>
       </header>
