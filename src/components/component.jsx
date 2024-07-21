@@ -20,7 +20,7 @@ export function Component({ elements }) {
     const article = e.target.closest(".article");
     if (article) {
       const articleData = {}
-      articleData.title = article.querySelector(".article-title").textContent;
+      articleData.title = article.querySelector(".article-title").getAttribute("title");
       articleData.content = article.querySelector(".article-content").textContent;
       articleData.image = article.querySelector(".article-image").src;
       articleData.source = article.querySelector(".article-source").textContent;
