@@ -14,7 +14,8 @@
     "health": "Health",
     "us": "US",
     "toggleMenu": "Toggle Menu",	
-    "readOriginal": "Read Original"
+    "readOriginal": "Read Original",
+    "sourceCode": "Source Code"
   },
   "Home": {
     "latestNews": "Latest News",
@@ -22,6 +23,7 @@
     "worldNews": "World News",
     "politicsNews": "Politics News",
     "scienceNews": "Science News",
-    "businessNews": "Business News"
+    "businessNews": "Business News",
+    "sourceCode": "Source Code"
   }
 }
