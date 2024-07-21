@@ -81,7 +81,7 @@ export function Component({ elements }) {
         <div className="container mx-auto flex items-center justify-between">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <NewspaperIcon className="w-6 h-6" />
-            <span className="text-xl font-bold">AI News</span>
+            <span className="text-xl font-bold">Lazy News</span>
           </Link>
           <div className="flex items-center gap-4">
             <nav className="hidden md:flex items-center gap-6 mr-4">
