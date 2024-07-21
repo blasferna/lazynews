@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export function Component({ elements }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -19,13 +24,18 @@ export function Component({ elements }) {
   const articleClick = (e) => {
     const article = e.target.closest(".article");
     if (article) {
-      const articleData = {}
-      articleData.title = article.querySelector(".article-title").getAttribute("title");
-      articleData.content = article.querySelector(".article-content").textContent;
+      const articleData = {};
+      articleData.title = article
+        .querySelector(".article-title")
+        .getAttribute("title");
+      articleData.content =
+        article.querySelector(".article-content").textContent;
       articleData.image = article.querySelector(".article-image").src;
       articleData.source = article.querySelector(".article-source").textContent;
       articleData.favicon = article.querySelector(".article-favicon").src;
-      articleData.timeAgo = article.querySelector(".article-time-ago").textContent;
+      articleData.timeAgo =
+        article.querySelector(".article-time-ago").textContent;
+      articleData.url = article.getAttribute("data-url");
       openModal(articleData);
     }
   };
@@ -144,7 +154,7 @@ export function Component({ elements }) {
             <div key={index} className="mb-8">
               <h2 className="text-2xl font-bold mb-4">{element.title}</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {element.component}
+                {element.component}
               </div>
             </div>
           ))}
@@ -172,11 +182,13 @@ export function Component({ elements }) {
       </footer>
       {isModalOpen && (
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-          <DialogContent className="sm:max-w-[800px]">
-          <DialogHeader>
-          <DialogTitle className="text-2xl font-bold">{articleData.title}</DialogTitle>
-          </DialogHeader>
-            <div className="grid gap-6">
+          <DialogContent className="w-full sm:max-w-[800px] h-screen sm:h-auto overflow-y-auto max-h-screen">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold text-left">
+                {articleData.title}
+              </DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-3">
               <div>
                 <img
                   src={articleData.image}
@@ -186,22 +198,31 @@ export function Component({ elements }) {
                   className="rounded-md object-cover aspect-video"
                 />
               </div>
-              <div className="flex items-center mt-3 gap-1 article-source">
-                <img
-                  src={articleData.favicon}
-                  alt="Favicon"
-                  className="rounded-full w-4 h-4 overflow-hidden article-favicon"
-                />
-                <span className="text-xs ml-1 article-source">{articleData.source}</span>
-                <span className="text-xs text-muted-foreground">
-                  <span className="mr-1">•</span>
-                  <span>{articleData.timeAgo}</span>
-                </span>
+              <div className="flex items-center mt-1 gap-1 justify-between article-source">
+                <div className="flex items-center gap-1">
+                  <img
+                    src={articleData.favicon}
+                    alt="Favicon"
+                    className="rounded-full w-4 h-4 overflow-hidden article-favicon"
+                  />
+                  <span className="text-xs ml-1 article-source">
+                    {articleData.source}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    <span className="mr-1">•</span>
+                    <span>{articleData.timeAgo}</span>
+                  </span>
+                </div>
+                <a
+                  href={articleData.url}
+                  target="_blank"
+                  className="text-muted-foreground hover:underline text-xs flex items-center gap-1"
+                >
+                  Read original
+                </a>
               </div>
-              <div className="grid gap-4">
-                <p className="text-article-foreground">
-                  {articleData.content}
-                </p>
+              <div className="grid">
+                <p className="text-article-foreground">{articleData.content}</p>
               </div>
             </div>
           </DialogContent>

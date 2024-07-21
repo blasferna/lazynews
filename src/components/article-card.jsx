@@ -14,7 +14,7 @@ function ArticleCard({
   publishedAt,
 }) {
   return (
-    <div className="group hover:cursor-pointer article">
+    <div className="group hover:cursor-pointer article" data-url={url}>
       <img
         src={image}
         alt="Article Thumbnail"
