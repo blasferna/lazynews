@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { truncateTitle } from "@/lib/utils";
 
 export function Component({ elements }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -20,6 +21,11 @@ export function Component({ elements }) {
     setArticleData(data);
     setIsModalOpen(true);
   };
+
+  const getTruncatedTitle = () => {
+    const isMobile = window.innerWidth <= 600;
+    return truncateTitle(articleData.title, isMobile ? 95 : articleData.title.length);
+  };  
 
   const articleClick = (e) => {
     const article = e.target.closest(".article");
@@ -184,8 +190,8 @@ export function Component({ elements }) {
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent className="w-full sm:max-w-[800px] h-screen sm:h-auto overflow-y-auto max-h-screen">
             <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-left">
-                {articleData.title}
+              <DialogTitle className="text-2xl font-bold text-left sm:max-w-none max-w-[95ch] sm:overflow-visible overflow-hidden text-ellipsis">
+                {getTruncatedTitle()}
               </DialogTitle>
             </DialogHeader>
             <div className="grid gap-3">
