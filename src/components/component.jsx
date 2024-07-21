@@ -11,6 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { truncateTitle } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import LocaleSwitcher from "./locale-switcher";
 
 
@@ -18,6 +19,7 @@ export function Component({ elements }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [articleData, setArticleData] = useState({});
+  const t = useTranslations("Menu");
 
   const openModal = (data) => {
     setArticleData(data);
@@ -84,22 +86,22 @@ export function Component({ elements }) {
           <div className="flex items-center gap-4">
             <nav className="hidden md:flex items-center gap-6 mr-4">
               <Link href="#" className="hover:underline" prefetch={false}>
-                Home
+                {t("home")}
               </Link>
               <Link href="#" className="hover:underline" prefetch={false}>
-                Technology
+                {t("politics")}
               </Link>
               <Link href="#" className="hover:underline" prefetch={false}>
-                Business
+                {t("business")}
               </Link>
               <Link href="#" className="hover:underline" prefetch={false}>
-                Science
+                {t("science")}
               </Link>
               <Link href="#" className="hover:underline" prefetch={false}>
-                Sports
+                {t("sports")}
               </Link>
               <Link href="#" className="hover:underline" prefetch={false}>
-                Entertainment
+                {t("entertainment")}
               </Link>
             </nav>
             <LocaleSwitcher />
@@ -107,28 +109,30 @@ export function Component({ elements }) {
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
                   <MenuIcon className="w-5 h-5" />
-                  <span className="sr-only">Toggle Menu</span>
+                  <span className="sr-only">
+                    {t("toggleMenu")}
+                  </span>
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="md:hidden">
                 <nav className="grid gap-4 p-4">
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Home
+                    {t("home")}
                   </Link>
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Technology
+                    {t("politics")}
                   </Link>
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Business
+                    {t("business")}
                   </Link>
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Science
+                    {t("science")}
                   </Link>
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Sports
+                    {t("sports")}
                   </Link>
                   <Link href="#" className="hover:underline" prefetch={false}>
-                    Entertainment
+                    {t("entertainment")}
                   </Link>
                 </nav>
               </SheetContent>
@@ -212,7 +216,7 @@ export function Component({ elements }) {
                   target="_blank"
                   className="text-muted-foreground hover:underline text-xs flex items-center gap-1"
                 >
-                  Read original
+                  {t("readOriginal")}
                 </a>
               </div>
               <div className="grid">

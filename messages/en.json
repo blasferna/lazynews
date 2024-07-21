@@ -2,5 +2,26 @@
   "LocaleSwitcher": {
     "english": "English",
     "spanish": "Español"
+  },
+  "Menu": {
+    "home": "Home",
+    "politics": "Politics",
+    "business": "Business",
+    "science": "Science",
+    "sports": "Sports",
+    "entertainment": "Entertainment",
+    "world": "World",
+    "health": "Health",
+    "us": "US",
+    "toggleMenu": "Toggle Menu",	
+    "readOriginal": "Read Original"
+  },
+  "Home": {
+    "latestNews": "Latest News",
+    "readOriginal": "Read Original",
+    "worldNews": "World News",
+    "politicsNews": "Politics News",
+    "scienceNews": "Science News",
+    "businessNews": "Business News"
   }
 }

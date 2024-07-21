@@ -1,29 +1,31 @@
 import { Component } from "@/components/component";
 import { LatestArticles, FilteredArticles } from "@/components/article-card";
+import { getTranslations } from "next-intl/server";
 
-export default function Home() {
+export default async function Home() {
+  const t = await getTranslations("Home");
   const elements = [
-    { title: "Latest News", component: <LatestArticles></LatestArticles> },
+    { title: t("latestNews"), component: <LatestArticles></LatestArticles> },
     {
-      title: "World News",
+      title: t("worldNews"),
       component: (
         <FilteredArticles section="world" limit={4}></FilteredArticles>
       ),
     },
     {
-      title: "Politics News",
+      title: t("politicsNews"),
       component: (
         <FilteredArticles section="politics" limit={4}></FilteredArticles>
       ),
     },
     {
-      title: "Science News",
+      title: t("scienceNews"),
       component: (
         <FilteredArticles section="science" limit={4}></FilteredArticles>
       ),
     },
     {
-      title: "Business News",
+      title: t("businessNews"),
       component: (
         <FilteredArticles section="business" limit={4}></FilteredArticles>
       ),

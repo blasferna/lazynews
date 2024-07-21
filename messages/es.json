@@ -1,6 +1,27 @@
 {
-    "LocaleSwitcher": {
-        "english": "English",
-        "spanish": "Español"
-    }
+  "LocaleSwitcher": {
+    "english": "English",
+    "spanish": "Español"
+  },
+  "Menu": {
+    "home": "Inicio",
+    "politics": "Política",
+    "business": "Negocios",
+    "science": "Ciencia",
+    "sports": "Deportes",
+    "entertainment": "Entretenimiento",
+    "world": "Mundo",
+    "health": "Salud",
+    "us": "EE.UU.",
+    "toggleMenu": "Alternar Menú",
+    "readOriginal": "Leer Original"
+  },
+  "Home": {
+    "latestNews": "Últimas Noticias",
+    "readOriginal": "Leer Original",
+    "worldNews": "Mundo",
+    "politicsNews": "Política",
+    "scienceNews": "Ciencia",
+    "businessNews": "Negocios"
+  }
 }
