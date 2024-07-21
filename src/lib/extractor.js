@@ -3,8 +3,6 @@ import axios from "axios";
 import cheerio from "cheerio";
 import TurndownService from "turndown";
 
-// TODO: Server-Side cache by lang and title
-
 const allCategories = [
   "travel",
   "world",
@@ -23,13 +21,14 @@ const allCategories = [
 
 const prefferedCategories = [
   "world",
-  // "us",
+  "us",
   "business",
   "politics",
-  //"health",
+  "health",
   "entertainment",
   "science",
   "climate",
+  "sport",
 ];
 
 const maxArticlesPerCategory = 4;
@@ -59,7 +58,7 @@ async function extractCNN() {
           article.title = title;
           article.url = url;
           article.image = extractedArticle.image;
-          article.language = "Spanish";
+          article.language = "English";
           article.source = "CNN";
           article.publishedAt = new Date(extractedArticle.published);
           article.extractedAt = new Date();

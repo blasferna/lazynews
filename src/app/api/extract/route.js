@@ -3,7 +3,20 @@ import { ArticleTable } from "@/db/drizzle/schema";
 import "@/lib/env-config.js";
 import { extractCNN } from "@/lib/extractor";
 import { summarize } from "@/lib/summarizer";
-import { eq, and } from "drizzle-orm";
+import { translate } from "@/lib/translator";
+import { and, eq } from "drizzle-orm";
+
+async function existsArticle(article) {
+  return await db
+    .select()
+    .from(ArticleTable)
+    .where(
+      and(
+        eq(ArticleTable.url, article.url),
+        eq(ArticleTable.language, article.language)
+      )
+    );
+}
 
 export async function POST(req) {
   try {
@@ -12,16 +25,7 @@ export async function POST(req) {
       for (let i = 0; i < articles[section].length; i++) {
         const article = articles[section][i];
 
-        const exists = await db
-          .select()
-          .from(ArticleTable)
-          .where(
-            and(
-              eq(ArticleTable.url, article.url),
-              eq(ArticleTable.language, article.language)
-            )
-          );
-
+        let exists = await existsArticle(article);
         if (exists.length > 0) {
           console.log(`Article ${i + 1} of ${section} already exists`);
           continue;
@@ -32,6 +36,22 @@ export async function POST(req) {
 
         article.content = summarized.content;
         article.title = summarized.title;
+
+        await db.insert(ArticleTable).values(article);
+        console.log(`Article ${i + 1} of ${section} inserted`);
+
+        article.language = "Spanish";
+
+        exists = await existsArticle(article);
+        if (exists.length > 0) {
+          console.log(`Article ${i + 1} of ${section} already exists`);
+          continue;
+        }
+
+        let translated = await translate(article, article.language);
+        translated = JSON.parse(translated);
+        article.content = translated.content;
+        article.title = translated.title;
 
         await db.insert(ArticleTable).values(article);
         console.log(`Article ${i + 1} of ${section} inserted`);
