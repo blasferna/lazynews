@@ -1,13 +1,8 @@
-import { formatDistanceToNow } from "date-fns";
-
 import { db } from "@/db/drizzle/db";
 import { ArticleTable } from "@/db/drizzle/schema";
 import { desc, eq } from "drizzle-orm";
+import TimeAgo from "./time-ago";
 
-const TimeAgo = ({ date }) => {
-  const timeAgo = formatDistanceToNow(new Date(date), { addSuffix: true });
-  return <span className="article-time-ago">{timeAgo}</span>;
-};
 
 function ArticleCard({
   title,
