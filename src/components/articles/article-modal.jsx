@@ -10,8 +10,9 @@ import { truncateTitle } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 
 const ArticleModal = ({ isOpen, onClose, article }) => {
-  if (!isOpen || !article) return null;
   const t = useTranslations("ArticleModal");
+
+  if (!isOpen || !article) return null;
 
   const getTruncatedTitle = () => {
     const isMobile = typeof window !== "undefined" && window.innerWidth <= 600;
