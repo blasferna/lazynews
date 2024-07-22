@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { truncateTitle } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -21,7 +22,7 @@ const ArticleModal = ({ isOpen, onClose, article }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-full sm:max-w-[800px] h-screen sm:h-auto overflow-y-auto max-h-screen">
+      <DialogContent className="w-full sm:max-w-[800px] sm:h-auto overflow-y-auto max-h-screen">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-left sm:max-w-none max-w-[95ch] sm:overflow-visible overflow-hidden text-ellipsis">
             {getTruncatedTitle()}
