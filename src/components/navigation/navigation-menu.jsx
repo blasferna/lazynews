@@ -1,10 +1,11 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
 const NavigationMenu = () => {
   const t = useTranslations("Menu");
+  const locale = useLocale();
 
   const menuItems = [
     { href: "/", label: "home" },
@@ -20,7 +21,7 @@ const NavigationMenu = () => {
       {menuItems.map((item) => (
         <Link
           key={item.label}
-          href={item.href}
+          href={`/${locale}${item.href}`}
           className="hover:underline"
           prefetch={false}
         >

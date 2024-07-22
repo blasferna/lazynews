@@ -3,11 +3,12 @@
 import { MenuIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
 const MobileNavigationMenu = () => {
   const t = useTranslations("Menu");
+  const locale = useLocale();
 
   const menuItems = [
     { href: "/", label: "home" },
@@ -31,7 +32,7 @@ const MobileNavigationMenu = () => {
           {menuItems.map((item) => (
             <Link
               key={item.label}
-              href={item.href}
+              href={`/${locale}${item.href}`}
               className="hover:underline"
               prefetch={false}
             >
