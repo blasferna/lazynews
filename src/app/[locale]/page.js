@@ -1,10 +1,12 @@
-import { Component } from "@/components/component";
-import { LatestArticles, FilteredArticles } from "@/components/article-card";
+import ArticleGrid from "@/components/articles/article-grid";
+import FilteredArticles from "@/components/articles/filtered-articles";
+import LatestArticles from "@/components/articles/latest-articles";
+
 import { getTranslations } from "next-intl/server";
 
 export default async function Home() {
   const t = await getTranslations("Home");
-  const elements = [
+  const sections = [
     { title: t("latestNews"), component: <LatestArticles></LatestArticles> },
     {
       title: t("worldNews"),
@@ -44,5 +46,9 @@ export default async function Home() {
     },
   ];
 
-  return <Component elements={elements}></Component>;
+  return (
+    <main className="flex-1 dark:bg-[#1a1b1e] dark:text-white bg-background text-foreground">
+      <ArticleGrid sections={sections}></ArticleGrid>
+    </main>
+  );
 }

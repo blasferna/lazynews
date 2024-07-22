@@ -3,6 +3,9 @@
     "english": "English",
     "spanish": "Español"
   },
+  "ArticleModal": {
+    "readOriginal": "Leer Original"
+  },
   "Menu": {
     "home": "Inicio",
     "politics": "Política",
@@ -14,12 +17,10 @@
     "health": "Salud",
     "us": "EE.UU.",
     "toggleMenu": "Alternar Menú",
-    "readOriginal": "Leer Original",
     "sourceCode": "Código Fuente"
   },
   "Home": {
     "latestNews": "Últimas Noticias",
-    "readOriginal": "Leer Original",
     "worldNews": "Mundo",
     "politicsNews": "Política",
     "scienceNews": "Ciencia",

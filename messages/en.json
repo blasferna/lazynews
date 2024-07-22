@@ -3,6 +3,9 @@
     "english": "English",
     "spanish": "Español"
   },
+  "ArticleModal": {
+    "readOriginal": "Read Original"
+  },
   "Menu": {
     "home": "Home",
     "politics": "Politics",
@@ -14,12 +17,10 @@
     "health": "Health",
     "us": "US",
     "toggleMenu": "Toggle Menu",	
-    "readOriginal": "Read Original",
     "sourceCode": "Source Code"
   },
   "Home": {
     "latestNews": "Latest News",
-    "readOriginal": "Read Original",
     "worldNews": "World News",
     "politicsNews": "Politics News",
     "scienceNews": "Science News",
