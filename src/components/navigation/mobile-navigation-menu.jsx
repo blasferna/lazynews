@@ -28,14 +28,14 @@ const MobileNavigationMenu = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="lg:hidden"
           onClick={() => setIsOpen(true)}
         >
           <MenuIcon className="w-5 h-5" />
           <span className="sr-only">{t("toggleMenu")}</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="md:hidden">
+      <SheetContent side="right" className="lg:hidden">
         <nav className="grid gap-4 p-4">
           {menuItems.map((item) => (
             <Link

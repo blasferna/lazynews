@@ -25,7 +25,7 @@ const NavigationMenu = () => {
   };
 
   return (
-    <nav className="hidden md:flex items-center gap-6 mr-4">
+    <nav className="hidden lg:flex items-center gap-6 mr-4">
       {menuItems.map((item) => (
         <Link
           key={item.label}
