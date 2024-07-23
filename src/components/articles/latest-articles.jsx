@@ -24,7 +24,6 @@ async function LatestArticles() {
           source={article.source}
           favicon={article.favicon}
           image={article.image}
-          content={article.content}
           publishedAt={article.publishedAt}
           section={article.section}
         />
