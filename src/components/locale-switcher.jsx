@@ -9,16 +9,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function LocaleSwitcher() {
-  const router = useRouter();
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const changeLocale = (locale) => {
-    router.push(`/${locale}`);
-  };
+  function switchLocale(newLocale) {
+    const newPath = `/${newLocale}${pathname.replace(`/${locale}`, "")}`;
+    router.push(newPath);
+  }
 
   return (
     <DropdownMenu>
@@ -31,12 +33,12 @@ export default function LocaleSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[130px]">
-        <DropdownMenuItem onClick={() => changeLocale("es")}>
+        <DropdownMenuItem onClick={() => switchLocale("es")}>
           <div className="flex items-center gap-2">
             <span>{t("spanish")}</span>
           </div>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLocale("en")}>
+        <DropdownMenuItem onClick={() => switchLocale("en")}>
           <div className="flex items-center gap-2">
             <span>{t("english")}</span>
           </div>
