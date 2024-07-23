@@ -41,7 +41,7 @@ const Article = async ({ params: { slug } }) => {
   return (
     <main className="flex-1 dark:bg-[#1a1b1e] dark:text-white bg-background text-foreground">
       <div className="container  mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 px-3 sm:px-0 pt-8">
-        <h1 className="text-4xl font-bold mb-4">{article[0].title}</h1>
+        <h1 className="text-2xl lg:text-4xl font-bold mb-4">{article[0].title}</h1>
         <div className="hidden lg:block"> &nbsp;</div>
       </div>
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 px-3 mt-2 sm:px-0 pb-8">
