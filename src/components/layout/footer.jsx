@@ -13,7 +13,7 @@ const Footer = () => {
         <nav className="flex items-center gap-4">
           <Link
             href="https://github.com/blasferna/lazynews"
-            className="hover:underline flex items-center"
+            className="text-sm hover:underline flex items-center"
             prefetch={false}
           >
             <GithubIcon className="w-4 h-4 mr-2" />
