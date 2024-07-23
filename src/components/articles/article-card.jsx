@@ -12,7 +12,11 @@ function ArticleCard({
 }) {
   return (
     <article>
-      <div className="group hover:cursor-pointer article" data-url={encodeURIComponent(url)} data-section={section}>
+      <div
+        className="group hover:cursor-pointer article"
+        data-url={encodeURIComponent(url)}
+        data-section={section}
+      >
         <img
           src={image}
           alt="Article Thumbnail"
@@ -37,10 +41,11 @@ function ArticleCard({
           >
             {title.length > 100 ? title.slice(0, 100) + "..." : title}
           </h3>
-
-          <p className="mt-2 text-article-foreground article-content hidden">
-            {content}
-          </p>
+          {content && (
+            <p className="mt-2 text-article-foreground article-content hidden">
+              {content}
+            </p>
+          )}
         </div>
       </div>
     </article>
