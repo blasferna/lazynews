@@ -5,10 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import { useState } from "react";
 
 const MobileNavigationMenu = () => {
   const t = useTranslations("Menu");
   const locale = useLocale();
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
     { href: "/", label: "home" },
@@ -20,9 +23,14 @@ const MobileNavigationMenu = () => {
   ];
 
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden"
+          onClick={() => setIsOpen(true)}
+        >
           <MenuIcon className="w-5 h-5" />
           <span className="sr-only">{t("toggleMenu")}</span>
         </Button>
@@ -35,6 +43,7 @@ const MobileNavigationMenu = () => {
               href={`/${locale}${item.href}`}
               className="hover:underline"
               prefetch={false}
+              onClick={() => setIsOpen(false)}
             >
               {t(item.label)}
             </Link>
