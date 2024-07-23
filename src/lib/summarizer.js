@@ -19,7 +19,7 @@ async function summarize(article) {
     `,
   });
 
-  return text;
+  return text.replace(/^```json\n/, "").replace(/\n```$/, "");
 }
 
 export { summarize };

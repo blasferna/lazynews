@@ -36,6 +36,7 @@ export async function POST(req) {
 
         article.content = summarized.content;
         article.title = summarized.title;
+        article.language = "English";
 
         await db.insert(ArticleTable).values(article);
         console.log(`Article ${i + 1} of ${section} inserted`);

@@ -42,7 +42,6 @@ async function extractCNN() {
   for (const elem of elements) {
     let url = `https://edition.cnn.com${$(elem).find("a").attr("href")}`;
     let section = $(elem).attr("data-section");
-    let title = $(elem).find(".container__headline-text").text();
 
     if (prefferedCategories.includes(section)) {
       if (!articles[section]) {
@@ -50,24 +49,16 @@ async function extractCNN() {
       }
 
       if (articles[section].length < maxArticlesPerCategory) {
-        let article = { title, url, section };
-        try {
-          const extractedArticle = await extract(url);
-          const turndownService = new TurndownService();
-          article.content = turndownService.turndown(extractedArticle.content);
-          article.title = title;
-          article.url = url;
-          article.image = extractedArticle.image;
-          article.language = "English";
-          article.source = "CNN";
-          article.publishedAt = new Date(extractedArticle.published);
-          article.extractedAt = new Date();
-          article.section = section;
-          article.favicon =
-            "https://edition.cnn.com/media/sites/cnn/favicon.ico";
+        const article = await extractContent(
+          url,
+          "CNN",
+          "https://edition.cnn.com/media/sites/cnn/favicon.ico",
+          section,
+          "English"
+        );
+
+        if (article) {
           articles[section].push(article);
-        } catch (error) {
-          console.error(`Error extracting article from ${url}`, error);
         }
       }
     }
@@ -75,4 +66,55 @@ async function extractCNN() {
   return articles;
 }
 
-export { extractCNN };
+async function extractContent(
+  url,
+  source,
+  favicon,
+  section,
+  language = "Unknown"
+) {
+  try {
+    const extractedArticle = await extract(url);
+    const turndownService = new TurndownService();
+
+    const article = {
+      title: extractedArticle.title,
+      content: turndownService.turndown(extractedArticle.content),
+      url: url,
+      image: extractedArticle.image,
+      language: language,
+      source: source,
+      publishedAt: new Date(extractedArticle.published),
+      extractedAt: new Date(),
+      section: section,
+      favicon: favicon,
+    };
+
+    if (favicon === null) {
+      const response = await axios.get(url);
+      const $ = cheerio.load(response.data);
+
+      let sourceFavicon = $('link[rel="shortcut icon"]').attr("href");
+      if (sourceFavicon) {
+        sourceFavicon = $('link[rel="icon"]').attr("href");
+      }
+      if (!sourceFavicon) {
+        sourceFavicon = $('link[rel="apple-touch-icon"]').attr("href");
+      }
+
+      if (sourceFavicon && !sourceFavicon.startsWith("http")) {
+        const urlObject = new URL(url);
+        sourceFavicon =
+          urlObject.origin +
+          (sourceFavicon.startsWith("/") ? "" : "/") +
+          sourceFavicon;
+      }
+    }
+    return article;
+  } catch (error) {
+    console.error(`Error extracting article from ${url}`, error);
+    return null;
+  }
+}
+
+export { extractCNN, extractContent };
