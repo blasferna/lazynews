@@ -8,7 +8,8 @@ async function summarize(article) {
       You are a professional writer who produces simple, clear, and concise content. 
       Your responses should be in JSON format with the following structure: 
       {"title": "...", "content": "..."}.
-      The content should be a concise summary of no more than 150 words, divided into a maximum of three short paragraphs.
+      The content should be a concise summary of no more than 150 words, divided into a maximum of three short paragraphs. 
+      Regardless of the input language, the output should always be in English.
     `,
     prompt: `
       Summarize the following article in a concise manner. 
