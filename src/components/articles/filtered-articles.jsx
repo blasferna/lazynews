@@ -31,6 +31,7 @@ async function FilteredArticles({ section, limit }) {
           image={article.image}
           content={article.content}
           publishedAt={article.publishedAt}
+          section={article.section}
         />
       ))}
     </>

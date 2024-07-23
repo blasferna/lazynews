@@ -8,10 +8,11 @@ function ArticleCard({
   source,
   favicon,
   publishedAt,
+  section,
 }) {
   return (
     <article>
-      <div className="group hover:cursor-pointer article" data-url={url}>
+      <div className="group hover:cursor-pointer article" data-url={encodeURIComponent(url)} data-section={section}>
         <img
           src={image}
           alt="Article Thumbnail"

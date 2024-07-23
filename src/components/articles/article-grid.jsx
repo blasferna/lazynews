@@ -1,32 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import ArticleModal from "./article-modal";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const ArticleGrid = ({ sections }) => {
-  const [selectedArticle, setSelectedArticle] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = (article) => {
-    setSelectedArticle(article);
-    setIsModalOpen(true);
-  };
+  const router = useRouter();
+  const locale = useLocale();
 
   const handleArticleClick = (e) => {
     const articleEl = e.target.closest(".article");
     if (articleEl) {
-      const article = {};
-      article.title = articleEl
-        .querySelector(".article-title")
-        .getAttribute("title");
-      article.content = articleEl.querySelector(".article-content").textContent;
-      article.image = articleEl.querySelector(".article-image").src;
-      article.source = articleEl.querySelector(".article-source").textContent;
-      article.favicon = articleEl.querySelector(".article-favicon").src;
-      article.timeAgo =
-        articleEl.querySelector(".article-time-ago").textContent;
-      article.url = articleEl.getAttribute("data-url");
-      openModal(article);
+      const url = articleEl.getAttribute("data-url");
+      const section = articleEl.getAttribute("data-section");
+      router.push(`/${locale}/${section}/${url}`);
     }
   };
 
@@ -56,11 +43,6 @@ const ArticleGrid = ({ sections }) => {
           </div>
         </section>
       ))}
-      <ArticleModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        article={selectedArticle}
-      />
     </div>
   );
 };

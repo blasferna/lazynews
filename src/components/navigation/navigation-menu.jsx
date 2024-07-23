@@ -21,7 +21,7 @@ const NavigationMenu = () => {
     if (item.href === "/") {
       return pathname === `/${locale}`;
     }
-    return pathname === `/${locale}${item.href}`;
+    return pathname.startsWith(`/${locale}${item.href}`);
   };
 
   return (

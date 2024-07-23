@@ -6,6 +6,10 @@
   "ArticleModal": {
     "readOriginal": "Read Original"
   },
+  "ArticlePage": {
+    "readOriginal": "Read Original",
+    "relatedArticles": "Related Articles"
+  },
   "Menu": {
     "home": "Home",
     "politics": "Politics",
