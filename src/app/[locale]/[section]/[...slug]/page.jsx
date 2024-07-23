@@ -6,6 +6,7 @@ import { ArticleTable } from "@/db/drizzle/schema";
 import { and, desc, eq, ne } from "drizzle-orm";
 import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
+import React from "react";
 
 const Article = async ({ params: { slug } }) => {
   const fullSlug = decodeURIComponent(slug.join("/"));
@@ -41,7 +42,9 @@ const Article = async ({ params: { slug } }) => {
   return (
     <main className="flex-1 dark:bg-[#1a1b1e] dark:text-white bg-background text-foreground">
       <div className="container  mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 px-3 sm:px-0 pt-8">
-        <h1 className="text-2xl lg:text-4xl font-bold mb-4">{article[0].title}</h1>
+        <h1 className="text-2xl lg:text-4xl font-bold mb-4">
+          {article[0].title}
+        </h1>
         <div className="hidden lg:block"> &nbsp;</div>
       </div>
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 px-3 mt-2 sm:px-0 pb-8">
@@ -73,7 +76,13 @@ const Article = async ({ params: { slug } }) => {
             </a>
           </div>
           <p className="text-lg mb-4 text-article-foreground mt-4">
-            {article[0].content}
+            {article[0].content.split("\n\n").map((paragraph, index) => (
+              <React.Fragment key={index}>
+                {index > 0 && <br />}
+                {index > 0 && <br />}
+                {paragraph}
+              </React.Fragment>
+            ))}
           </p>
         </div>
         <aside>
