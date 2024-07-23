@@ -15,10 +15,13 @@ const MobileNavigationMenu = () => {
 
   const menuItems = [
     { href: "/", label: "home" },
+    { href: "/world", label: "world" },
     { href: "/politics", label: "politics" },
     { href: "/business", label: "business" },
+    { href: "/us", label: "us" },
     { href: "/science", label: "science" },
     { href: "/sports", label: "sports" },
+    { href: "/health", label: "health" },
     { href: "/entertainment", label: "entertainment" },
   ];
 

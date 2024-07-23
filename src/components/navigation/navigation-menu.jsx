@@ -11,6 +11,7 @@ const NavigationMenu = () => {
 
   const menuItems = [
     { href: "/", label: "home" },
+    { href: "/world", label: "world" },
     { href: "/politics", label: "politics" },
     { href: "/business", label: "business" },
     { href: "/science", label: "science" },
