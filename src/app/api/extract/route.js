@@ -8,11 +8,19 @@ export async function POST(req) {
 
     if (body && body.url) {
       const url = normalizeUrl(body.url);
+      let processedArticle = {};
       console.log(`Extracting article from ${url}`);
       const article = await extractContent(url);
       if (article) {
-        await processArticle(article);
+        processedArticle = await processArticle(article);
       }
+
+      return new Response(
+        JSON.stringify({ success: true, article: processedArticle }),
+        {
+          status: 200,
+        }
+      );
     } else {
       const articles = await extractCNN();
       for (const section of Object.keys(articles)) {
@@ -21,11 +29,10 @@ export async function POST(req) {
           await processArticle(article);
         }
       }
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+      });
     }
-
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-    });
   } catch (error) {
     return new Response(
       JSON.stringify({ success: false, error: error.message }),

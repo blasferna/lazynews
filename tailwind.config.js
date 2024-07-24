@@ -54,7 +54,11 @@ module.exports = {
             "card": {
               "DEFAULT": "hsl(var(--card))",
               "foreground": "hsl(var(--card-foreground))"
-            }
+            },
+            "skeleton": {
+              "DEFAULT": "hsl(var(--skeleton))",
+              "foreground": "hsl(var(--skeleton-foreground))"
+            },
           },
       keyframes: {
             "accordion-down": {
@@ -71,6 +75,14 @@ module.exports = {
               },
               "to": {
                 "height": "0"
+              }
+            },
+            "pulse": {
+              "0%, 100%": {
+                "opacity": "1"
+              },
+              "50%": {
+                "opacity": ".5"
               }
             }
           }

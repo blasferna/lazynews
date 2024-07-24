@@ -3,6 +3,7 @@ import LocaleSwitcher from "@/components/locale-switcher";
 import MobileNavigationMenu from "@/components/navigation/mobile-navigation-menu";
 import NavigationMenu from "@/components/navigation/navigation-menu";
 import Link from "next/link";
+import SummarizeModal from "../summarize-modal";
 
 const Header = () => {
   return (
@@ -14,6 +15,7 @@ const Header = () => {
         </Link>
         <div className="flex items-center gap-4">
           <NavigationMenu />
+          <SummarizeModal />
           <LocaleSwitcher />
           <MobileNavigationMenu />
         </div>

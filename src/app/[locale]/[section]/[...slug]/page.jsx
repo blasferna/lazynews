@@ -1,3 +1,4 @@
+import ArticleExtractor from "@/components/articles/article-extractor";
 import RelatedArticle from "@/components/articles/related-article";
 import TimeAgo from "@/components/time-ago";
 import { localesData } from "@/config/locales";
@@ -8,11 +9,15 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const Article = async ({ params: { slug } }) => {
+const Article = async ({ params: { slug }, searchParams: { extract } }) => {
   const fullSlug = decodeURIComponent(slug.join("/"));
   const t = await getTranslations("ArticlePage");
   const locale = await getLocale();
   const language = localesData[locale].name;
+
+  if (extract) {
+    return <ArticleExtractor url={fullSlug} />;
+  }
 
   const article = await db
     .select()

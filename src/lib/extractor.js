@@ -49,7 +49,7 @@ async function extractContent(
   source,
   favicon,
   section,
-  language = "Unknown"
+  language = "English"
 ) {
   try {
     const extractedArticle = await extract(url);
@@ -119,7 +119,7 @@ async function processArticle(article) {
   let exists = await existsArticle(article);
   if (exists.length > 0) {
     console.log(`Article ${article.url} (${article.language}) already exists`);
-    return;
+    return exists[0];
   }
 
   let summarized = await summarize(article);
@@ -143,7 +143,7 @@ async function processArticle(article) {
   exists = await existsArticle(article);
   if (exists.length > 0) {
     console.log(`Article ${article.url} (${article.language}) already exists`);
-    return;
+    return exists[0];
   }
 
   console.log(`Translating article ${article.url} (${article.language})`);
@@ -154,6 +154,8 @@ async function processArticle(article) {
 
   await db.insert(ArticleTable).values(article);
   console.log(`Article ${article.url} (${article.language}) inserted`);
+
+  return article;
 }
 
 export { extractCNN, extractContent, processArticle };
