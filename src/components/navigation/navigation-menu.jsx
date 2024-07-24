@@ -15,7 +15,7 @@ const NavigationMenu = () => {
     { href: "/politics", label: "politics" },
     { href: "/business", label: "business" },
     { href: "/science", label: "science" },
-    { href: "/sports", label: "sports" },
+    { href: "/sport", label: "sport" },
     { href: "/entertainment", label: "entertainment" },
   ];
   const isActive = (item) => {

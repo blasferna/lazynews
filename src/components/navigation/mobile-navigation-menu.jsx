@@ -20,7 +20,7 @@ const MobileNavigationMenu = () => {
     { href: "/business", label: "business" },
     { href: "/us", label: "us" },
     { href: "/science", label: "science" },
-    { href: "/sports", label: "sports" },
+    { href: "/sport", label: "sport" },
     { href: "/health", label: "health" },
     { href: "/entertainment", label: "entertainment" },
   ];

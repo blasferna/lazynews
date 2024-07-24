@@ -52,7 +52,7 @@ const Article = async ({ params: { slug } }) => {
           <img
             src={article[0].image}
             alt="Article Thumbnail"
-            className="rounded-md object-contain w-full aspect-video article-image"
+            className="rounded-md object-cover w-full aspect-video article-image"
           />
           <div className="flex items-center mt-4 gap-1">
             <img

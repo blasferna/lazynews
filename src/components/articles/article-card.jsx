@@ -11,17 +11,19 @@ function ArticleCard({
   section,
 }) {
   return (
-    <article>
+    <article className="w-full">
       <div
         className="group hover:cursor-pointer article"
         data-url={encodeURIComponent(url)}
         data-section={section}
       >
-        <img
-          src={image}
-          alt="Article Thumbnail"
-          className="rounded-md object-contain aspect-video group-hover:brightness-75 article-image"
-        />
+        <div className="aspect-video w-full overflow-hidden rounded-md">
+          <img
+            src={image}
+            alt="Article Thumbnail"
+            className="w-full h-full object-cover group-hover:brightness-75 transition-all duration-300 article-image"
+          />
+        </div>
         <div className="flex items-center mt-3 gap-1">
           <img
             src={favicon}
