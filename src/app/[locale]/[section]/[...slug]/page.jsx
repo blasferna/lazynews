@@ -39,6 +39,8 @@ const Article = async ({ params: { slug } }) => {
     .orderBy(desc(ArticleTable.publishedAt))
     .limit(4);
 
+    console.log(article[0]);
+
   return (
     <main className="flex-1 dark:bg-[#1a1b1e] dark:text-white bg-background text-foreground">
       <div className="container  mx-auto grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 px-3 sm:px-0 pt-8">
