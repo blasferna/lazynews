@@ -1,13 +1,15 @@
 import "@/lib/env-config.js";
 import { extractCNN, extractContent, processArticle } from "@/lib/extractor";
+import { normalizeUrl } from "@/lib/utils";
 
 export async function POST(req) {
   try {
     const body = await req.json().catch(() => null);
 
     if (body && body.url) {
-      console.log(`Extracting article from ${body.url}`);
-      const article = await extractContent(body.url);
+      const url = normalizeUrl(body.url);
+      console.log(`Extracting article from ${url}`);
+      const article = await extractContent(url);
       if (article) {
         await processArticle(article);
       }

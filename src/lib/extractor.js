@@ -9,6 +9,7 @@ import cheerio from "cheerio";
 import { and, eq } from "drizzle-orm";
 import TurndownService from "turndown";
 import { categorize } from "./categorizer";
+import { normalizeUrl } from "./utils";
 
 async function extractCNN() {
   const response = await axios.get("https://edition.cnn.com/");
@@ -17,7 +18,7 @@ async function extractCNN() {
   const elements = $("[data-section]").toArray();
 
   for (const elem of elements) {
-    let url = `https://edition.cnn.com${$(elem).find("a").attr("href")}`;
+    let url = normalizeUrl(`https://edition.cnn.com${$(elem).find("a").attr("href")}`);
     let section = $(elem).attr("data-section");
 
     if (prefferedCategories.includes(section)) {

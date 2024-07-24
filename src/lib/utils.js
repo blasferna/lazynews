@@ -11,3 +11,11 @@ export function truncateTitle(title, maxLength) {
   }
   return title;
 }
+
+
+export function normalizeUrl(url) {
+  if (url.endsWith("/")) {
+    return url.slice(0, -1);
+  }
+  return url;
+}
