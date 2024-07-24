@@ -1,37 +1,14 @@
+import { maxArticlesPerCategory, prefferedCategories } from "@/config/categories";
+import { db } from "@/db/drizzle/db";
+import { ArticleTable } from "@/db/drizzle/schema";
+import { summarize } from "@/lib/summarizer";
+import { translate } from "@/lib/translator";
 import { extract } from "@extractus/article-extractor";
 import axios from "axios";
 import cheerio from "cheerio";
+import { and, eq } from "drizzle-orm";
 import TurndownService from "turndown";
-
-const allCategories = [
-  "travel",
-  "world",
-  "entertainment",
-  "style",
-  "politics",
-  "science",
-  "homepage",
-  "climate",
-  "business",
-  "health",
-  "us",
-  "sport",
-  "opinions",
-];
-
-const prefferedCategories = [
-  "world",
-  "us",
-  "business",
-  "politics",
-  "health",
-  "entertainment",
-  "science",
-  "climate",
-  "sport",
-];
-
-const maxArticlesPerCategory = 4;
+import { categorize } from "./categorizer";
 
 async function extractCNN() {
   const response = await axios.get("https://edition.cnn.com/");
@@ -51,7 +28,7 @@ async function extractCNN() {
       if (articles[section].length < maxArticlesPerCategory) {
         const article = await extractContent(
           url,
-          "CNN",
+          "edition.cnn.com",
           "https://edition.cnn.com/media/sites/cnn/favicon.ico",
           section,
           "English"
@@ -90,12 +67,12 @@ async function extractContent(
       favicon: favicon,
     };
 
-    if (favicon === null) {
+    if (!favicon) {
       const response = await axios.get(url);
       const $ = cheerio.load(response.data);
 
       let sourceFavicon = $('link[rel="shortcut icon"]').attr("href");
-      if (sourceFavicon) {
+      if (!sourceFavicon) {
         sourceFavicon = $('link[rel="icon"]').attr("href");
       }
       if (!sourceFavicon) {
@@ -109,7 +86,15 @@ async function extractContent(
           (sourceFavicon.startsWith("/") ? "" : "/") +
           sourceFavicon;
       }
+
+      article.favicon = sourceFavicon;
     }
+
+    if (!article.source) {
+      const urlObject = new URL(url);
+      article.source = urlObject.hostname;
+    }
+
     return article;
   } catch (error) {
     console.error(`Error extracting article from ${url}`, error);
@@ -117,4 +102,57 @@ async function extractContent(
   }
 }
 
-export { extractCNN, extractContent };
+async function existsArticle(article) {
+  return await db
+    .select()
+    .from(ArticleTable)
+    .where(
+      and(
+        eq(ArticleTable.url, article.url),
+        eq(ArticleTable.language, article.language)
+      )
+    );
+}
+
+async function processArticle(article) {
+  let exists = await existsArticle(article);
+  if (exists.length > 0) {
+    console.log(`Article ${article.url} (${article.language}) already exists`);
+    return;
+  }
+
+  let summarized = await summarize(article);
+  summarized = JSON.parse(summarized);
+
+  article.content = summarized.content;
+  article.title = summarized.title;
+  article.language = "English";
+
+  if (!article.section) {
+    console.log(`Categorizing article ${article.url}`);
+    const category = await categorize(article);
+    article.section = JSON.parse(category).category;
+  }
+
+  await db.insert(ArticleTable).values(article);
+  console.log(`Article ${article.url} (${article.language}) inserted`);
+
+  article.language = "Spanish";
+
+  exists = await existsArticle(article);
+  if (exists.length > 0) {
+    console.log(`Article ${article.url} (${article.language}) already exists`);
+    return;
+  }
+
+  console.log(`Translating article ${article.url} (${article.language})`);
+  let translated = await translate(article, article.language);
+  translated = JSON.parse(translated);
+  article.content = translated.content;
+  article.title = translated.title;
+
+  await db.insert(ArticleTable).values(article);
+  console.log(`Article ${article.url} (${article.language}) inserted`);
+}
+
+export { extractCNN, extractContent, processArticle };
