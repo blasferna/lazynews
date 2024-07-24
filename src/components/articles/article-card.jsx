@@ -1,6 +1,8 @@
 import TimeAgo from "@/components/time-ago";
+import Link from "next/link";
+import { getLocale } from "next-intl/server";
 
-function ArticleCard({
+async function ArticleCard({
   title,
   content,
   url,
@@ -10,8 +12,12 @@ function ArticleCard({
   publishedAt,
   section,
 }) {
+
+  const locale = await getLocale();
+
   return (
     <article className="w-full">
+      <Link href={`/${locale}/${section}/${encodeURIComponent(url)}`}>
       <div
         className="group hover:cursor-pointer article"
         data-url={encodeURIComponent(url)}
@@ -50,6 +56,7 @@ function ArticleCard({
           )}
         </div>
       </div>
+      </Link>
     </article>
   );
 }

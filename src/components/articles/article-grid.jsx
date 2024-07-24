@@ -1,36 +1,4 @@
-"use client";
-
-import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-
 const ArticleGrid = ({ sections }) => {
-  const router = useRouter();
-  const locale = useLocale();
-
-  const handleArticleClick = (e) => {
-    const articleEl = e.target.closest(".article");
-    if (articleEl) {
-      const url = articleEl.getAttribute("data-url");
-      const section = articleEl.getAttribute("data-section");
-      router.push(`/${locale}/${section}/${url}`);
-    }
-  };
-
-  useEffect(() => {
-    const articleElements = document.querySelectorAll(".article");
-
-    articleElements.forEach((article) => {
-      article.addEventListener("click", handleArticleClick);
-    });
-
-    return () => {
-      articleElements.forEach((article) => {
-        article.removeEventListener("click", handleArticleClick);
-      });
-    };
-  }, []);
-
   return (
     <div className="container px-4 sm:px-0 mx-auto py-8">
       {sections.map((section, index) => (
