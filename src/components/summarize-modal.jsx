@@ -27,7 +27,7 @@ export default function SummarizeModal() {
 
   const inputRef = useRef(null);
 
-  const isVaildUrl = (url) => {
+  const isValidUrl = (url) => {
     const urlPattern = new RegExp(
       '^(https?:\\/\\/)?' + 
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))' +
@@ -35,16 +35,16 @@ export default function SummarizeModal() {
       '(\\?[;&a-z\\d%_.~+=-]*)?' + 
       '(\\#[-a-z\\d_]*)?$', 'i'
     );
-    return urlPattern.test(url);
+    return urlPattern.test(url.split("#")[0]);
   };
 
   const handleSummarize = () => {
-    if (!url || !isVaildUrl(url)) {
+    if (!url || !isValidUrl(url)) {
       setInputError(true);
       inputRef.current.focus();
       return;
     }
-    router.push(`/${locale}/unknown/${url}?extract=true`);
+    router.push(`/${locale}/unknown/${encodeURIComponent(url)}?extract=true`);
     setIsOpen(false);
   };
 
