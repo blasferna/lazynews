@@ -5,7 +5,7 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: 'selector',
+  darkMode: "selector",
   theme: {
     extend: {
       backgroundImage: {
@@ -14,78 +14,78 @@ module.exports = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
+        sans: ["var(--font-inter)"],
+      },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        article: {
+          DEFAULT: "hsl(var(--article))",
+          foreground: "hsl(var(--article-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+        skeleton: {
+          DEFAULT: "hsl(var(--skeleton))",
+          foreground: "hsl(var(--skeleton-foreground))",
+        },
       },
     },
-      colors: {
-            "border": "hsl(var(--border))",
-            "input": "hsl(var(--input))",
-            "ring": "hsl(var(--ring))",
-            "background": "hsl(var(--background))",
-            "foreground": "hsl(var(--foreground))",
-            "primary": {
-              "DEFAULT": "hsl(var(--primary))",
-              "foreground": "hsl(var(--primary-foreground))"
-            },
-            "secondary": {
-              "DEFAULT": "hsl(var(--secondary))",
-              "foreground": "hsl(var(--secondary-foreground))"
-            },
-            "destructive": {
-              "DEFAULT": "hsl(var(--destructive))",
-              "foreground": "hsl(var(--destructive-foreground))"
-            },
-            "muted": {
-              "DEFAULT": "hsl(var(--muted))",
-              "foreground": "hsl(var(--muted-foreground))"
-            },
-            "article": {
-              "DEFAULT": "hsl(var(--article))",
-              "foreground": "hsl(var(--article-foreground))"
-            },
-            "accent": {
-              "DEFAULT": "hsl(var(--accent))",
-              "foreground": "hsl(var(--accent-foreground))"
-            },
-            "popover": {
-              "DEFAULT": "hsl(var(--popover))",
-              "foreground": "hsl(var(--popover-foreground))"
-            },
-            "card": {
-              "DEFAULT": "hsl(var(--card))",
-              "foreground": "hsl(var(--card-foreground))"
-            },
-            "skeleton": {
-              "DEFAULT": "hsl(var(--skeleton))",
-              "foreground": "hsl(var(--skeleton-foreground))"
-            },
-          },
-      keyframes: {
-            "accordion-down": {
-              "from": {
-                "height": "0"
-              },
-              "to": {
-                "height": "var(--radix-accordion-content-height)"
-              }
-            },
-            "accordion-up": {
-              "from": {
-                "height": "var(--radix-accordion-content-height)"
-              },
-              "to": {
-                "height": "0"
-              }
-            },
-            "pulse": {
-              "0%, 100%": {
-                "opacity": "1"
-              },
-              "50%": {
-                "opacity": ".5"
-              }
-            }
-          }
-},
+    keyframes: {
+      "accordion-down": {
+        from: {
+          height: "0",
+        },
+        to: {
+          height: "var(--radix-accordion-content-height)",
+        },
+      },
+      "accordion-up": {
+        from: {
+          height: "var(--radix-accordion-content-height)",
+        },
+        to: {
+          height: "0",
+        },
+      },
+      pulse: {
+        "0%, 100%": {
+          opacity: "1",
+        },
+        "50%": {
+          opacity: ".5",
+        },
+      },
+    },
+  },
   plugins: [require("tailwindcss-animate")],
 };

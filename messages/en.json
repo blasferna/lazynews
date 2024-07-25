@@ -10,6 +10,13 @@
     "readOriginal": "Read Original",
     "relatedArticles": "Related Articles"
   },
+  "SummarizeModal": {
+    "trigger": "Summarize",
+    "title": "Summarize News Articles",
+    "description": "Enter a URL and we will summarize the article for you.",
+    "placeholder": "Enter article URL",
+    "summarize": "Summarize"
+  },
   "Menu": {
     "home": "Home",
     "politics": "Politics",
