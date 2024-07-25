@@ -26,10 +26,13 @@ export default function LocaleSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" className="flex items-center gap-2">
-          <span className="">
+          <span className="hidden sm:block">
             {locale === "es" ? t("spanish") : t("english")}
           </span>
-          <ChevronsUpDownIcon className="ml-2 h-4 w-4 opacity-50" />
+          <span className="sm:hidden">
+            {locale.toUpperCase()}
+          </span>
+          <ChevronsUpDownIcon className="sm:ml-2 h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[130px]">
