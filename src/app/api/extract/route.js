@@ -2,6 +2,8 @@ import "@/lib/env-config.js";
 import { extractCNN, extractContent, processArticle } from "@/lib/extractor";
 import { normalizeUrl } from "@/lib/utils";
 
+export const maxDuration = 60;
+
 export async function POST(req) {
   try {
     const body = await req.json().catch(() => null);
