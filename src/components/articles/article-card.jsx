@@ -37,7 +37,7 @@ async function ArticleCard({
             className="rounded-full w-4 h-4 overflow-hidden article-favicon"
           />
           <span className="text-xs ml-1 article-source">{source}</span>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-xs text-muted-foreground flex items-center">
             <span className="mr-1">•</span>
             <TimeAgo date={publishedAt} />
           </span>

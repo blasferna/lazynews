@@ -68,7 +68,7 @@ const Article = async ({ params: { slug }, searchParams: { extract } }) => {
             <span className="text-xs ml-1 article-source">
               {article[0].source}
             </span>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground flex items-center">
               <span className="mr-1">•</span>
               <TimeAgo date={article[0].publishedAt} />
             </span>
