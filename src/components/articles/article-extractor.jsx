@@ -29,7 +29,7 @@ const ArticleExtractor = ({ url }) => {
         }
 
         const { article } = await response.json();
-        router.push(`/${locale}/${article.section}/${url}`);
+        router.push(`/${locale}/${article.section}/${encodeURIComponent(url)}`);
       } catch (err) {
         console.error("Extraction error:", err);
         setError(true);
