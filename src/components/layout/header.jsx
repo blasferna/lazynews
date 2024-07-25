@@ -11,7 +11,8 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2" prefetch={false}>
           <NewspaperIcon className="w-6 h-6" />
-          <span className="text-xl font-bold">Lazy News</span>
+          <span className="text-xl font-bold hidden sm:block">Lazy News</span>
+          <span className="text-xl font-bold sm:hidden">LN</span>
         </Link>
         <div className="flex items-center gap-4">
           <NavigationMenu />
