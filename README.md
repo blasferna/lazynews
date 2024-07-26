@@ -1,6 +1,7 @@
 # AI-Powered News Summarization Platform
 
-![Screenshot](path/to/screenshot.png)
+![imagen](https://github.com/user-attachments/assets/7b03a1a6-8909-4fd4-9a96-0365e9d12a9a)
+
 
 ## Overview
 
