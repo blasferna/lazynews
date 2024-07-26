@@ -72,7 +72,7 @@ export default function SummarizeModal() {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button variant="gradient">
-          <SparklesIcon className="w-5 h-5 lg:mr-2" />
+          <SparklesIcon className="w-5 h-5 xl:mr-2" />
           <span className="hidden xl:inline">{t("trigger")}</span>
         </Button>
       </DialogTrigger>
