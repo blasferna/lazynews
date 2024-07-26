@@ -28,6 +28,7 @@ export default function SummarizeModal() {
   const inputRef = useRef(null);
 
   const isValidUrl = (url) => {
+    // FIXME: This regex is not perfect, for instance, asdfasdgasdg is a valid URL
     const urlPattern = new RegExp(
       '^(https?:\\/\\/)?' + 
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))' +
@@ -72,7 +73,7 @@ export default function SummarizeModal() {
       <DialogTrigger asChild>
         <Button variant="gradient">
           <SparklesIcon className="w-5 h-5 lg:mr-2" />
-          <span className="hidden lg:inline">{t("trigger")}</span>
+          <span className="hidden xl:inline">{t("trigger")}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[700px]">
