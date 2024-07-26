@@ -14,12 +14,14 @@ const RelatedArticle = async ({ article }) => {
       href={`/${locale}/${article.section}/${encodeURIComponent(article.url)}`}
     >
       <div className="flex items-center gap-2 mb-3 group hover:cursor-pointer">
-        <img
-          src={article.image}
-          alt="Article Thumbnail"
-          className="rounded-md w-[130px] h-[73px] object-contain aspect-video group-hover:brightness-75 article-image"
-        />
-        <div>
+        <div className="w-[130px] h-[73px] flex-shrink-0">
+          <img
+            src={article.image}
+            alt="Article Thumbnail"
+            className="w-full h-full object-cover rounded-md group-hover:brightness-75 transition-all duration-300"
+          />
+        </div>
+        <div className="flex-grow min-w-0">
           <h3 className="text-lg group-hover:underline" title={article.title}>
             {getTruncatedTitle(article.title)}
           </h3>
