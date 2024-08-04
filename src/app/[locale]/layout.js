@@ -12,6 +12,26 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+export const metadata = {
+  title: "Lazy News",
+  description: "AI-Powered News Summarization Platform",
+  authors: { name: "Blas Isaias Fernández", url: "https://blasferna.com" },
+  keywords: ["News", "Summarization", "AI", "Next.js", "Tailwind CSS"],
+  openGraph: {
+    type: "website",
+    url: "https://ailazynews.vercel.app",
+    images: [
+      {
+        url: "https://ailazynews.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Lazy News",
+      },
+    ],
+  },
+};
+
+
 export default async function LocaleLayout({ children, params: { locale } }) {
   const messages = await getMessages();
 

@@ -9,6 +9,56 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export async function generateMetadata({ params: { slug } }) {
+    const fullSlug = decodeURIComponent(slug.join("/"));
+    const locale = await getLocale();
+    const language = localesData[locale].name;
+  
+    const article = await db
+      .select()
+      .from(ArticleTable)
+      .where(
+        and(eq(ArticleTable.url, fullSlug), eq(ArticleTable.language, language))
+      )
+      .limit(1);
+  
+    if (!article || article.length === 0) {
+      notFound();
+    }
+  
+    const articleData = article[0];
+    const description = articleData.content.substring(0, 200) + '...';
+  
+    return {
+      title: articleData.title,
+      description: description,
+      authors: null,
+      keywords: null,
+      openGraph: {
+        title: articleData.title,
+        description: description,
+        url: `/${locale}/article/${fullSlug}`,
+        siteName: 'Lazy News',
+        images: [
+          {
+            url: articleData.image,
+            width: 1200,
+            height: 630,
+            alt: articleData.title,
+          }
+        ],
+        locale: locale,
+        type: 'article',
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: articleData.title,
+        description: description,
+        images: [articleData.image],
+      },
+    };
+  }
+
 const Article = async ({ params: { slug }, searchParams: { extract } }) => {
   const fullSlug = decodeURIComponent(slug.join("/"));
   const t = await getTranslations("ArticlePage");
