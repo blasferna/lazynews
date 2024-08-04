@@ -3,7 +3,6 @@ import FilteredArticles from "@/components/articles/filtered-articles";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params: { section } }) {
-
   const t = await getTranslations("Menu");
 
   return {
