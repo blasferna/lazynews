@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 import { SparklesIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import validUrl from "valid-url";
 
 export default function SummarizeModal() {
   const t = useTranslations("SummarizeModal");
@@ -28,15 +29,7 @@ export default function SummarizeModal() {
   const inputRef = useRef(null);
 
   const isValidUrl = (url) => {
-    // FIXME: This regex is not perfect, for instance, asdfasdgasdg is a valid URL
-    const urlPattern = new RegExp(
-      '^(https?:\\/\\/)?' + 
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|((\\d{1,3}\\.){3}\\d{1,3}))' +
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' +
-      '(\\?[;&a-z\\d%_.~+=-]*)?' + 
-      '(\\#[-a-z\\d_]*)?$', 'i'
-    );
-    return urlPattern.test(url.split("#")[0]);
+    return validUrl.isUri(url);
   };
 
   const handleSummarize = () => {
@@ -65,8 +58,7 @@ export default function SummarizeModal() {
   useEffect(() => {
     setUrl("");
     setInputError(false);
-  }
-  , [isOpen]);
+  }, [isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
