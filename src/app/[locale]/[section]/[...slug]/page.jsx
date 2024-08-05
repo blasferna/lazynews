@@ -9,10 +9,22 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import React from "react";
 
-export async function generateMetadata({ params: { slug } }) {
+export async function generateMetadata({
+  params: { slug },
+  searchParams: { extract },
+}) {
   const fullSlug = decodeURIComponent(slug.join("/"));
   const locale = await getLocale();
   const language = localesData[locale].name;
+
+  if (extract) {
+    return {
+      title: "Extracting Article...",
+      description: "Extracting Article...",
+      authors: null,
+      keywords: null,
+    };
+  }
 
   const article = await db
     .select()
